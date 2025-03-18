@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:36:58 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/18 20:39:57 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:17:02 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int parse_map_line(char *line, t_config *config)
     // Vérifier que la ligne contient uniquement des caractères valides
     if (!is_map_line(line))
     {
-		free(line);
         printf("Error\nInvalid character in map\n");
         return (0);
     }
