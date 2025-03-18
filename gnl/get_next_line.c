@@ -6,73 +6,53 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:06:04 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/14 19:36:15 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:36:32 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-char	*malloc_temp(int fd)
+char *get_next_line(int fd)
 {
-	char	*temp_2;
+    static char buffer[BUFFER_SIZE + 1];
+    static int buffer_pos = 0;
+    static int bytes_read = 0;
+    int line_pos;
+    char *line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	temp_2 = malloc (BUFFER_SIZE + 1);
-	if (temp_2 == NULL)
-		return (NULL);
-	return (temp_2);
-}
-
-void	*error_read(int bytes_read, char *temp, char **buffer)
-{
-	if (bytes_read < 0)
-	{
-		free(temp);
-		if (buffer != NULL && *buffer != NULL)
-			*buffer[0] = '\0';
-		return (NULL);
-	}
-	return (buffer);
-}
-
-void	*error_line(char *line, char **buffer)
-{
-	if (!line)
-	{
-		if (buffer != NULL && *buffer != NULL)
-			free(*buffer);
-		free(line);
-		return (NULL);
-	}
-	return (line);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*buffer = NULL;
-	char		*temp;
-	char		*line;
-	int			bytes_read;
-
-	temp = malloc_temp(fd);
-	while (1)
-	{
-		bytes_read = read(fd, temp, BUFFER_SIZE);
-		if (error_read(bytes_read, temp, &buffer) == 0)
-			return (NULL);
-		temp[bytes_read] = '\0';
-		buffer = ft_strjoin_gnl(buffer, temp);
-		if (buffer == NULL)
-			break ;
-		if (ft_strchr_gnl(buffer, '\n') || bytes_read == 0)
-			break ;
-	}
-	free(temp);
-	line = get_line_from_buffer(&buffer);
-	if (error_line(line, &buffer) == NULL)
-		return (NULL);
-	return (line);
+    if(fd < 0 || BUFFER_SIZE < 1)
+        return(NULL);
+    line = malloc(10000);
+    if(!line)
+        return(NULL);
+    line_pos = 0;
+    while(1)
+    {
+        if(buffer_pos >= bytes_read)
+        {
+            bytes_read = read(fd, buffer, BUFFER_SIZE);
+            buffer_pos = 0;
+            if(bytes_read <= 0)
+                break;
+        }
+        while(buffer_pos < bytes_read)
+        {
+            line[line_pos++] = buffer[buffer_pos++];
+            if(line[line_pos - 1] == '\n')
+            {
+                line[line_pos] = '\0';
+                return(line);
+            }
+        }
+    }
+	
+    if(line_pos > 0)
+    {
+        line[line_pos] = '\0';
+        return(line);
+    }
+    free(line);
+    return(NULL);
 }
 
 // #include <stdio.h>
