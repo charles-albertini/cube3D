@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:01:17 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/17 20:38:36 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:03:40 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int parse_file(char *filename, t_config *config)
 		//cas ou map pas a la fin du fichier
 		if (config->map.grid != NULL && is_empty_line(line))
         {
+			free(line);
+			close(fd);
 			printf("Error\nMap not at the end\n");
     		return (0);
 		}

@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:36:58 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/18 17:05:33 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/18 20:39:57 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int start_map_parsing(char *first_line, t_config *config)
     }
     
     config->map.height = 1;
-    config->map.width = ft_strlen(first_line);
+    config->map.width = ft_strlen_width(first_line);
     
     return (1);
 }
@@ -64,6 +64,7 @@ int parse_map_line(char *line, t_config *config)
     // Vérifier que la ligne contient uniquement des caractères valides
     if (!is_map_line(line))
     {
+		free(line);
         printf("Error\nInvalid character in map\n");
         return (0);
     }
@@ -89,7 +90,7 @@ int parse_map_line(char *line, t_config *config)
     }
     
     // Mettre à jour la largeur si nécessaire
-    int line_len = ft_strlen(line);
+    int line_len = ft_strlen_width(line);
     if (line_len > config->map.width)
         config->map.width = line_len;
     

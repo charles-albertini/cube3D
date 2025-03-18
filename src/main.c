@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:57:42 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/17 14:25:44 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:24:01 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int main(int argc, char **argv)
         return (1);
 	else
 		printf("tout est ok !\n");
-    
     // Initialiser la minilibX et lancer le jeu
     // ...
     

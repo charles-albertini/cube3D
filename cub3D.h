@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:55:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/17 21:18:06 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/18 20:50:47 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int is_all_num(char *str);
 char *trim_left(char *str);
 void flood_fill_mark(char **map, int x, int y, int height, int width);
 void mark_outer_spaces(char **map, int height, int width);
+int ft_strlen_width(char *str);
 
 //MAP
 int is_map_line(char *line);

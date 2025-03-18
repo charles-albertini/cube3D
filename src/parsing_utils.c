@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:09:40 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/18 15:43:18 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/18 18:18:57 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,20 @@ void free_array(char **arr)
     free(arr);
 }
 
+int ft_strlen_width(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\t')
+			i = i + 4;
+		else
+			i ++;
+	}
+	return (i);
+}
 int is_all_num(char *str)
 {
 	int	i;
