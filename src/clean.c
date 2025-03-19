@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:04:49 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/15 13:03:31 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:01:10 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void clean_config(t_config *config)
 {
+	int i;
+
+	i=0;
     // Libérer les chemins de textures
     if (config->north.path)
         free(config->north.path);
@@ -27,8 +30,11 @@ void clean_config(t_config *config)
     // Libérer la carte
     if (config->map.grid)
     {
-        for (int i = 0; i < config->map.height; i++)
+        while (i < config->map.height)
+		{
             free(config->map.grid[i]);
+			i++;	
+		}
         free(config->map.grid);
     }
 }
