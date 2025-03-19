@@ -1,4 +1,4 @@
-NAME    := cub3D
+NAME    := Cub3D
 CFLAGS  := -Wextra -Wall -Werror
 LIBMLX  := MLX42
 MLX		:= MLX42
@@ -6,7 +6,7 @@ CLONE	:= git clone --depth=1
 
 HEADERS := -I ./include -I $(LIBMLX)/include
 LIBS    := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS    := $(shell find ./src ./libft ./gnl -iname "*.c")
+SRCS    := $(shell find ./src ./parsing ./libft ./gnl -iname "*.c")
 OBJ_DIR := obj
 OBJS    := $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
 

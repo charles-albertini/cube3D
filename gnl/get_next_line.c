@@ -6,83 +6,102 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:06:04 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/18 21:36:32 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:15:36 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-char *get_next_line(int fd)
+int	ft_malloc_count(char *stock)
 {
-    static char buffer[BUFFER_SIZE + 1];
-    static int buffer_pos = 0;
-    static int bytes_read = 0;
-    int line_pos;
-    char *line;
+	int	i;
 
-    if(fd < 0 || BUFFER_SIZE < 1)
-        return(NULL);
-    line = malloc(10000);
-    if(!line)
-        return(NULL);
-    line_pos = 0;
-    while(1)
-    {
-        if(buffer_pos >= bytes_read)
-        {
-            bytes_read = read(fd, buffer, BUFFER_SIZE);
-            buffer_pos = 0;
-            if(bytes_read <= 0)
-                break;
-        }
-        while(buffer_pos < bytes_read)
-        {
-            line[line_pos++] = buffer[buffer_pos++];
-            if(line[line_pos - 1] == '\n')
-            {
-                line[line_pos] = '\0';
-                return(line);
-            }
-        }
-    }
-	
-    if(line_pos > 0)
-    {
-        line[line_pos] = '\0';
-        return(line);
-    }
-    free(line);
-    return(NULL);
+	i = 0;
+	if (f_strchr(stock, '\n') == NULL)
+		return (ft_strlen(stock));
+	while (stock[i] != '\n' && stock[i] != '\0')
+		i++;
+	return (i + 1);
 }
 
-// #include <stdio.h>
-// int main(int argc, char *argv[])
-// {
-//     int		fd;
-//     char	*line;
-//     int		nb;
-//     int		nb_read;
-//     if (argc == 2) 
-//     {
-// 	fd = open(argv[1], O_RDONLY);
-// 	if (fd < 0)
-// 		return 0;    
-//     }
-//     if (argc == 1)
-// 		fd = 0;
-//     nb = 0;
-//     nb_read = 15;
-//     while (nb < nb_read)
-//     {
-// 	line = get_next_line(fd);
-// 	printf("%s", line);
-// 	free(line);
-// 	if (line == NULL)
-// 	    break;
-// 	nb++;
-//     }
+char	*ft_get_the_line(char *stock)
+{
+	char	*line;
+	int		i;
+	int		len;
 
-//     close(fd);
+	line = NULL;
+	len = ft_malloc_count(stock);
+	line = malloc(sizeof(char) * (len + 1));
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (stock[i] && i < len)
+	{
+		line[i] = stock[i];
+		i++;
+	}
+	line[i] = '\0';
+	return (line);
+}
 
-//     return 0;
-// }
+void	ft_get_the_spare(char *buffer)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (buffer[i] != '\n')
+		i++;
+	i = i + 1;
+	j = 0;
+	while (i < BUFFER_SIZE)
+	{
+		buffer[j] = buffer[i];
+		i++;
+		j++;
+	}
+	buffer[j] = '\0';
+}
+
+char	*ft_line_results(int ret, char *stock, char *buffer)
+{
+	char		*line;
+
+	line = NULL;
+	if (ft_strlen(stock) == 0)
+	{
+		free(stock);
+		return (NULL);
+	}
+	line = ft_get_the_line(stock);
+	if (ret > 0)
+		ft_get_the_spare(buffer);
+	free(stock);
+	return (line);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	buffer[BUFFER_SIZE + 1];
+	char		*stock;
+	int			ret;
+
+	stock = NULL;
+	if ((read(fd, buffer, 0) == -1) || BUFFER_SIZE <= 0)
+		return (NULL);
+	ret = 1;
+	stock = f_strjoin(stock, buffer);
+	while (f_strchr(stock, '\n') == NULL && ret > 0)
+	{
+		ret = read(fd, buffer, BUFFER_SIZE);
+		if (ret < 0)
+		{
+			free(stock);
+			return (NULL);
+		}
+		buffer[ret] = '\0';
+		stock = f_strjoin(stock, buffer);
+	}
+	return (ft_line_results(ret, stock, buffer));
+}
