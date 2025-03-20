@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:55:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 17:39:27 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/20 21:00:14 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@
 # include <fcntl.h>
 # include <stdint.h>
 # include <errno.h>
+# include <math.h>
 
 # define BUFFER_SIZE 50
 # define WIN_WIDTH 1920
-# define WIN_WEIGHT 1080
+# define WIN_HEIGHT 1080
 
 typedef struct s_player
 {

@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:41:13 by axburin-          #+#    #+#             */
-/*   Updated: 2025/03/20 17:38:03 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/20 21:02:01 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
-void	ft_calc_ray_dir(t_ray *ray, t_player *player)
-{
-	int x = 0;
-
-	while(x < WIN_WIDTH)
-	{
-		ray->camera_x = 2 * x / (double)WIN_WIDTH -1; 
-		ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
-		ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
-	}
-}
 
 void	ft_calc_delta_dist(t_ray *ray, t_player *player)
 {
@@ -104,10 +92,13 @@ void	ft_cast_rays(t_data *data, t_player *player)
 	int x;  // Pour chaque colonne de l'écran
 	t_ray ray;  // Structure de données pour le rayon
 
-	for (x = 0; x < WIN_WIDTH; x++)
+	x = 0;
+	while (x < WIN_WIDTH)
 	{
 
-		ft_calc_ray_dir(&ray, player);
+		ray.camera_x = 2 * x / (double)WIN_WIDTH -1; 
+		ray.dir_x = player->dir_x + player->plane_x * ray.camera_x;
+		ray.dir_y = player->dir_y + player->plane_y * ray.camera_x;
 
 		ft_calc_delta_dist(&ray, player);
 
@@ -120,6 +111,7 @@ void	ft_cast_rays(t_data *data, t_player *player)
 		// 6. Dessiner ou afficher le mur (cette étape serait généralement dans une fonction de rendu)
 		// Ici, vous pouvez dessiner le mur avec les calculs effectués pour chaque rayon
 		// Exemple d'affichage (vous devrez remplacer par votre propre méthode de rendu)
-		draw_wall(&ray, x);  // La fonction draw_wall doit dessiner le mur pour la colonne x
+		//draw_wall(&ray, x);  // La fonction draw_wall doit dessiner le mur pour la colonne x
+		x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:05:48 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 16:43:43 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/20 21:02:22 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,3 @@ void	get_images(t_config *conf)
 	mlx_delete_texture(conf->textu->west);
 	mlx_delete_texture(conf->textu->east);
 }
-
-void	draw_map(t_config *config)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (config->map.grid[y])
-	{
-		x = 0;
-		printf("non\n");
-		while (config->map.grid[y][x])
-		{
-			while (config->map.grid[y][x] == ' ')
-				x++;
-			mlx_image_to_window(config->mlx, config->imag->north, x * 32, y * 32);
-			if (config->map.grid[y][x] == '1')
-				mlx_image_to_window(config->mlx, config->imag->south, x * 32, y * 32);
-			if (config->map.grid[y][x] == 'N')
-				mlx_image_to_window(config->mlx, config->imag->east, x * 32, y * 32);
-			x++;
-		}
-		y++;
-	}
-}
-
-
