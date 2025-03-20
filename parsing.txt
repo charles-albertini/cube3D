@@ -50,3 +50,49 @@ C 225,30,0
 
 solution refaire une map ou les bords sont des 2 au lieu de 1 et faire un flood fill 
 pour voir si il n'y a pas d'espace ou de tab dans la map 
+
+
+PLAN:
+
+Voici une liste des étapes à suivre pour réaliser le projet Cub3D, après avoir fait le parsing:
+
+1. Initialiser la fenêtre avec la minilibX
+2. Configurer les gestionnaires d'événements pour:
+   - Les touches du clavier (W, A, S, D pour le mouvement, flèches pour la rotation, ESC pour quitter)
+   - La fermeture de la fenêtre (clic sur la croix rouge)
+
+3. Implémenter l'algorithme de raycasting:
+   - Initialiser la position et la direction du joueur selon la carte
+   - Pour chaque colonne de l'écran, calculer un rayon
+   - Déterminer les intersections du rayon avec les murs
+   - Calculer la distance du mur perpendiculaire à la direction du regard
+   - Déterminer la hauteur de la colonne à dessiner
+
+4. Gérer l'affichage:
+   - Dessiner le plafond avec la couleur spécifiée
+   - Dessiner le sol avec la couleur spécifiée
+   - Dessiner les murs avec les textures correspondantes selon l'orientation (N, S, E, W)
+
+5. Implémenter les déplacements du joueur:
+   - Avancer/reculer (W/S)
+   - Strafing (A/D)
+   - Rotation (flèches gauche/droite)
+
+6. Gérer les collisions avec les murs (obligatoire pour la partie bonus, mais recommandé pour la partie principale)
+
+7. Optimiser le rendu pour obtenir une performance fluide
+
+8. Implémenter la gestion des erreurs et le nettoyage des ressources
+
+9. Si vous souhaitez faire des bonus:
+   - Ajouter la minimap
+   - Implémenter la gestion des collisions si pas déjà fait
+   - Ajouter des portes
+   - Ajouter des animations
+   - Implémenter la rotation avec la souris
+
+10. Tester votre programme avec différentes cartes et configurations
+
+11. Vérifier qu'il n'y a pas de fuites de mémoire
+
+12. S'assurer que le programme respecte la norme de codage

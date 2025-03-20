@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:55:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 17:39:34 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:39:27 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
 # include "libft/libft.h"
 # include "gnl/get_next_line.h"
+# include "MLX42/include/MLX42/MLX42.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -26,8 +28,8 @@
 # include <errno.h>
 
 # define BUFFER_SIZE 50
-
-
+# define WIN_WIDTH 1920
+# define WIN_WEIGHT 1080
 
 typedef struct s_player
 {
@@ -44,10 +46,10 @@ typedef struct s_player
 	int		rotate;
 }	t_player;
 
-
 typedef struct s_ray
 {
 	double	camera_x;
+	double	camera_y;
 	double	dir_x;
 	double	dir_y;
 	int		map_x;
@@ -65,7 +67,6 @@ typedef struct s_ray
 	int		draw_start;
 	int		draw_end;
 }	t_ray;
-
 
 typedef struct s_mapinf
 {
@@ -112,9 +113,6 @@ typedef struct s_data
 	// t_img		minimap;
 }	t_data;
 
-
-
-
 typedef struct s_img
 {
 	void	*img;
@@ -129,11 +127,27 @@ typedef struct s_img
 
 typedef struct s_texture
 {
-	char	*path;
-	void	*img;
-	int		width;
-	int		height;
+	char			*path;
+	void			*img;
+	int				width;
+	int				height;
 }		t_texture;
+
+typedef struct s_images
+{
+	mlx_image_t	*north;
+	mlx_image_t	*south;
+	mlx_image_t	*west;
+	mlx_image_t	*east;
+}				t_images;
+
+typedef struct s_textures
+{
+	mlx_texture_t	*north;
+	mlx_texture_t	*south;
+	mlx_texture_t	*west;
+	mlx_texture_t	*east;
+}				t_textures;
 
 typedef struct s_color
 {
@@ -159,8 +173,11 @@ typedef struct s_config
 	t_texture	south;
 	t_texture	west;
 	t_texture	east;
+	struct s_images	*imag;
+	struct s_textures	*textu;
 	t_color		floor;
 	t_color		ceiling;
+	mlx_t		*mlx;
 	t_map		map;
 }		t_config;
 
@@ -214,5 +231,10 @@ void	init_map(t_mapinf *mapinfo);
 void	init_img_clean(t_img *img);
 void	init_data(t_data *data);
 
+//texture et image
+void	get_textures(t_config *config);
+void	get_images(t_config *conf);
+void	draw_map(t_config *config);
+void	my_key_hook(mlx_key_data_t keydata, void *param);
 
 #endif
