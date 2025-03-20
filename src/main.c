@@ -6,27 +6,41 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:57:42 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 16:59:52 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/20 23:34:24 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-int	init_game(t_config *config)
+void start_game_engine(t_config *config)
 {
-	config->mlx = mlx_init(WIN_WIDTH, WIN_WEIGHT, "Cube3D", 1);
-	if (!(config->mlx))
-		return (printf("Error\nError display\n"), 1);
-	get_textures(config);
-	get_images(config);
-	mlx_key_hook(config->mlx, &my_key_hook, config);
-	//ray casting
-	mlx_loop(config->mlx);
-	mlx_terminate(config->mlx);
-	//fonction free et cllean
-	return (0);
+    // Initialiser MLX d'abord
+    config->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3D", true);
+    if (!config->mlx)
+    {
+        fprintf(stderr, "Error: Failed to initialize MLX\n");
+        clean_config(config);
+        exit(EXIT_FAILURE);
+    }
+    
+    // Initialiser les données et charger les textures
+    init_all(config);
+	init_player_from_config(config);
+    get_textures(config);
+    
+    // Ajouter les hooks pour les entrées clavier et le rendu continu
+    mlx_key_hook(config->mlx, my_key_hook, config);
+    mlx_loop_hook(config->mlx, continuous_render, config);
+    
+    // Faire un premier rendu
+    render_frame(config);
+    
+    // Lancer la boucle principale (cette fonction est bloquante)
+    mlx_loop(config->mlx);
+    
+    // Cette ligne ne sera exécutée que lorsque la fenêtre sera fermée
+    mlx_terminate(config->mlx);
 }
-
 
 int	main(int argc, char **argv)
 {
@@ -41,8 +55,7 @@ int	main(int argc, char **argv)
 		return (1);
 	else
 		printf("tout est ok !\n");
-	if (init_game(&config) == 1)
-		return (1);
+	start_game_engine(&config);
 	clean_config(&config);
 	return (0);
 }

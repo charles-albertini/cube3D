@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 16:04:37 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 16:19:38 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/20 23:37:37 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,67 @@ void	move_left(t_config *config)
 	}
 }
 
-void	my_key_hook(mlx_key_data_t keydata, void *param)
+void my_key_hook(mlx_key_data_t keydata, void *param)
 {
-	t_config	*config;
+    t_config *config = (t_config *)param;
+    t_player *player = &config->data->player;
 
-	config = param;
-	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS
-			|| keydata.action == MLX_REPEAT))
-		move_up(config);
-	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS
-			|| keydata.action == MLX_REPEAT))
-		move_right(config);
-	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_PRESS
-			|| keydata.action == MLX_REPEAT))
-		move_down(config);
-	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS
-			|| keydata.action == MLX_REPEAT))
-		move_left(config);
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(config->mlx);
+    // Gestion de la touche ESC
+    if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+    {
+        mlx_close_window(config->mlx);
+        return;
+    }
+
+    // Déplacements
+    if (keydata.key == MLX_KEY_W) // Avancer
+    {
+        if (keydata.action == MLX_PRESS)
+            player->move_y = 1;
+        else if (keydata.action == MLX_RELEASE)
+            player->move_y = 0;
+        player->has_moved = 1;
+    }
+    if (keydata.key == MLX_KEY_S) // Reculer
+    {
+        if (keydata.action == MLX_PRESS)
+            player->move_y = -1;
+        else if (keydata.action == MLX_RELEASE)
+            player->move_y = 0;
+        player->has_moved = 1;
+    }
+    if (keydata.key == MLX_KEY_A) // Déplacement gauche
+    {
+        if (keydata.action == MLX_PRESS)
+            player->move_x = -1;
+        else if (keydata.action == MLX_RELEASE)
+            player->move_x = 0;
+        player->has_moved = 1;
+    }
+    if (keydata.key == MLX_KEY_D) // Déplacement droite
+    {
+        if (keydata.action == MLX_PRESS)
+            player->move_x = 1;
+        else if (keydata.action == MLX_RELEASE)
+            player->move_x = 0;
+        player->has_moved = 1;
+    }
+
+    // Rotations de la caméra avec les flèches
+    if (keydata.key == MLX_KEY_LEFT) // Rotation gauche
+    {
+        if (keydata.action == MLX_PRESS)
+            player->rotate = -1;
+        else if (keydata.action == MLX_RELEASE)
+            player->rotate = 0;
+        player->has_moved = 1;
+    }
+    if (keydata.key == MLX_KEY_RIGHT) // Rotation droite
+    {
+        if (keydata.action == MLX_PRESS)
+            player->rotate = 1;
+        else if (keydata.action == MLX_RELEASE)
+            player->rotate = 0;
+        player->has_moved = 1;
+    }
 }

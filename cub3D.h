@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:55:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 21:00:14 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/20 22:19:21 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ typedef struct s_config
 	t_color		ceiling;
 	mlx_t		*mlx;
 	t_map		map;
+	t_data		*data;
 }		t_config;
 
 //PARSING
@@ -224,18 +225,36 @@ int		flood_fill(char **map, int x, int y, t_config *config);
 
 //init exec
 
-void	init_ray(t_ray *ray);
-void	init_player(t_player *player);
+void	init_ray(t_config *config);
+void	init_player(t_config *config);
 
 // a revoir 
-void	init_map(t_mapinf *mapinfo);
+void	init_map(t_config *config);
 void	init_img_clean(t_img *img);
-void	init_data(t_data *data);
+void	init_data(t_config *config);
 
 //texture et image
 void	get_textures(t_config *config);
 void	get_images(t_config *conf);
 void	draw_map(t_config *config);
 void	my_key_hook(mlx_key_data_t keydata, void *param);
+
+void init_all(t_config *config );
+
+//RAY cast
+void	ft_calc_delta_dist(t_config *config);
+void	ft_calc_step_and_side_dist(t_config *config);
+void perf_dda(t_config *config);
+void calc_wall_height(t_config *config);
+void	ft_cast_rays(t_config *config);
+
+//TEST
+void draw_wall(int x, t_config *config, mlx_image_t *img);
+void render_frame(t_config *config);
+void init_player_from_config(t_config *config);
+void move_player(t_config *config);
+void continuous_render(void *param);
+void start_game_engine(t_config *config);
+
 
 #endif
