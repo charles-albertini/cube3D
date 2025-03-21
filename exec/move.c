@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 16:04:37 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 23:37:37 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:39:06 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,59 @@ void my_key_hook(mlx_key_data_t keydata, void *param)
         else if (keydata.action == MLX_RELEASE)
             player->rotate = 0;
         player->has_moved = 1;
+    }
+}
+
+void update_player_position(t_config *config)
+{
+    t_player *player = &config->data->player;
+    double moveSpeed = 0.05; // Ajustez selon vos besoins
+    double rotSpeed = 0.03;  // Ajustez selon vos besoins
+    
+    if (player->has_moved)
+    {
+        // Mouvement avant/arrière (W/S)
+        if (player->move_y != 0)
+        {
+            double new_x = player->pos_x + player->dir_x * moveSpeed * player->move_y;
+            double new_y = player->pos_y + player->dir_y * moveSpeed * player->move_y;
+            
+            // Vérification de collision avec les murs
+            if (config->data->map[(int)new_y][(int)new_x] != '1')
+            {
+                player->pos_x = new_x;
+                player->pos_y = new_y;
+            }
+        }
+        
+        // Mouvement latéral (A/D)
+        if (player->move_x != 0)
+        {
+            double new_x = player->pos_x + player->plane_x * moveSpeed * player->move_x;
+            double new_y = player->pos_y + player->plane_y * moveSpeed * player->move_x;
+            
+            // Vérification de collision avec les murs
+            if (config->data->map[(int)new_y][(int)new_x] != '1')
+            {
+                player->pos_x = new_x;
+                player->pos_y = new_y;
+            }
+        }
+        
+        // Rotation (Flèches gauche/droite)
+        if (player->rotate != 0)
+        {
+            double oldDirX = player->dir_x;
+            double oldPlaneX = player->plane_x;
+            
+            // Rotation de la direction et du plan de caméra
+            double rotFactor = rotSpeed * player->rotate;
+            player->dir_x = player->dir_x * cos(rotFactor) - player->dir_y * sin(rotFactor);
+            player->dir_y = oldDirX * sin(rotFactor) + player->dir_y * cos(rotFactor);
+            player->plane_x = player->plane_x * cos(rotFactor) - player->plane_y * sin(rotFactor);
+            player->plane_y = oldPlaneX * sin(rotFactor) + player->plane_y * cos(rotFactor);
+        }
+        
+        player->has_moved = 0; // Réinitialisez pour le prochain cycle
     }
 }

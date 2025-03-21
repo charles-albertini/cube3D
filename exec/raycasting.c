@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:41:13 by axburin-          #+#    #+#             */
-/*   Updated: 2025/03/20 22:52:45 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:36:20 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,11 @@ void perf_dda(t_config *config)
     int hit = 0;
     t_ray *ray = &config->data->ray;
     char **map = config->data->map;
-    int map_height = config->map.height;  // Assurez-vous que ces valeurs sont correctes
-    int map_width = config->map.width;    // dans votre structure
+    int map_height = config->map.height;
+    int map_width = config->map.width;
 
     while (!hit)
     {
-        // Comparer sidedist_x avec sidedist_y
         if (ray->sidedist_x < ray->sidedist_y)
         {
             ray->sidedist_x += ray->deltadist_x;
@@ -70,23 +69,20 @@ void perf_dda(t_config *config)
         }
         
         // Vérifier si on est hors des limites de la carte
-        if (ray->map_x < 0 || ray->map_x >= map_height || 
-            ray->map_y < 0 || ray->map_y >= map_width)
-        {
-            hit = 1;  // Arrêter l'algorithme si on sort des limites
-            break;
-        }
-        
-        // Vérifier si le pointeur de ligne existe
-        if (!map || !map[ray->map_x])
+        if (ray->map_y < 0 || ray->map_y >= map_height || 
+            ray->map_x < 0 || ray->map_x >= map_width)
         {
             hit = 1;
             break;
         }
         
-        // Vérifier si on a touché un mur
-        if (map[ray->map_x][ray->map_y] == '1')
+        // Vérifier si le pointeur de ligne existe et si on a touché un mur
+        if (map && ray->map_y >= 0 && ray->map_y < map_height &&
+            ray->map_x >= 0 && ray->map_x < map_width &&
+            map[ray->map_y][ray->map_x] == '1')
+        {
             hit = 1;
+        }
     }
 }
 

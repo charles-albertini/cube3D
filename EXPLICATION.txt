@@ -25,3 +25,15 @@ TRUC A FAIRE
 - y a des leaks, je crois qu'il y a une histoire de mlx_delet pour supprimer
 	les image generer (lancer avec val --suppressions=mlx42.supp ./Cub3D maps/map.cub)
 - voir pourquoi on est entourer de mur a chaque fois
+
+
+UPDATE:
+
+- le pb des mur c'etait dans le raycasting -> regler
+- le perso bougait pas mais on mettait pas a jour (fonction update_player_position)
+
+- Nouveau PB, au bout d'un moment le jeux segfault
+- ca raaaaaaaaaaaaaaaame de fou furieux
+- toujours des leak et des segfault mais ptn on a un rendu quoi c'est top
+
+BOOOOOOOONNE CHANCE 

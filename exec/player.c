@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:10:43 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 23:35:24 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:40:53 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void init_player_from_config(t_config *config)
 
 void move_player(t_config *config)
 {
-    double move_speed = 0.05;
+    double move_speed = 30;
     double rot_speed = 0.05;
     int new_x, new_y;
     

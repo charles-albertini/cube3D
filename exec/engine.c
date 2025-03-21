@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:11:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 23:30:19 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:39:58 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void continuous_render(void *param)
     {
 		
         move_player(config);
+		// Mettre à jour la position du joueur
+    	update_player_position(config);
         player->has_moved = 0;
         
         // Rafraîchir l'affichage

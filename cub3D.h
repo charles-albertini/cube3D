@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:55:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 22:19:21 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:39:16 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,7 @@ void init_player_from_config(t_config *config);
 void move_player(t_config *config);
 void continuous_render(void *param);
 void start_game_engine(t_config *config);
+void update_player_position(t_config *config);
 
 
 #endif

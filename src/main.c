@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:57:42 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 23:34:24 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:24:17 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ void start_game_engine(t_config *config)
 	init_player_from_config(config);
     get_textures(config);
     
+    // Faire un premier rendu
+    render_frame(config);
+	
     // Ajouter les hooks pour les entrées clavier et le rendu continu
     mlx_key_hook(config->mlx, my_key_hook, config);
     mlx_loop_hook(config->mlx, continuous_render, config);
     
-    // Faire un premier rendu
-    render_frame(config);
     
     // Lancer la boucle principale (cette fonction est bloquante)
     mlx_loop(config->mlx);
