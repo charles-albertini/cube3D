@@ -1,0 +1,27 @@
+CHANGEMENT:
+
+- j'ai rajoute la structure data dans la structure config, du coup dans le 
+	ray catsing a chaque fois on fait config->data->...
+
+- fonction init all pour tout initiliser au debut
+
+- ajouts des fonctions init_player_from_config, my_key_hook, continuous_render,
+	render, move_player, render_frame, draw_wall
+
+TRUC COOL:
+
+- le jeux se lance
+- la camera bouge
+
+PROBLEME
+
+- quand on deplace la camera le pc surchauffe en deux secondes
+- on ne peux pas bouger mais c'est parceque des le debut on est entourer de mur
+	peut importe la carte
+
+TRUC A FAIRE
+
+- voir pour fluidifier le truc pour pas que sa surchauffe
+- y a des leaks, je crois qu'il y a une histoire de mlx_delet pour supprimer
+	les image generer (lancer avec val --suppressions=mlx42.supp ./Cub3D maps/map.cub)
+- voir pourquoi on est entourer de mur a chaque fois
