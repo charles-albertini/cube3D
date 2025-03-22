@@ -6,7 +6,7 @@
 /*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 21:34:34 by axburin-          #+#    #+#             */
-/*   Updated: 2025/03/22 16:32:37 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:20:42 by axburin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	init_config(t_config *config)
 {
+	int	i;
+
+	i = 0;
+	while (i < 512)
+		config->keys[i++] = 0;
 	config->north.path = NULL;
 	config->north.img = NULL;
 	config->south.path = NULL;
@@ -32,8 +37,6 @@ void	init_config(t_config *config)
 	config->map.player_dir = '\0';
 	config->data = NULL;
 	config->current_image = NULL;
-	for(int i = 0; i < 512; i++)
-		config->keys[i] = 0;
 }
 
 void	init_ray(t_config *config)
@@ -71,6 +74,7 @@ void	init_player(t_config *config)
 	config->data->player.move_y = 0;
 	config->data->player.rotate = 0;
 }
+
 void	init_map(t_config *config)
 {
 	config->data->mapinf.fd = 0;
@@ -84,7 +88,7 @@ void	init_map(t_config *config)
 
 void	init_data(t_config *config)
 {
-	if(!config->data)
+	if (!config->data)
 		config->data = malloc(sizeof(t_data));
 	config->data->mlx = NULL;
 	config->data->win = NULL;
@@ -96,17 +100,3 @@ void	init_data(t_config *config)
 	config->data->texture_pixels = NULL;
 	config->data->textures = NULL;
 }
-void init_all(t_config *config )
-{
-	init_data(config);
-	init_ray(config);
-}
-void	init_img_clean(t_img *img)
-{
-	img->img = NULL;
-	img->addr = NULL;
-	img->pixel_bits = 0;
-	img->size_line = 0;
-	img->endian = 0;
-}
-

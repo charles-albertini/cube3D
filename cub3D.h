@@ -6,7 +6,7 @@
 /*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:55:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/22 16:11:39 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:48:51 by axburin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,4 +260,5 @@ void start_game_engine(t_config *config);
 void update_player_position(t_config *config);
 void handle_rotation(t_config *config);
 void handle_movement(t_config *config);
+void	handle_rotation2(t_config *config);
 #endif
