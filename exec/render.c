@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:11:22 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 23:34:33 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:42:07 by axburin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,44 +76,41 @@ void draw_wall(int x, t_config *config, mlx_image_t *img)
 
 void render_frame(t_config *config)
 {
-    // Créer une image pour le rendu
+    // Vérifier si une image existe déjà
+    if (config->current_image)
+    {
+        // Supprimer l'image existante
+        mlx_delete_image(config->mlx, config->current_image);
+        config->current_image = NULL; // Réinitialiser le pointeur
+    }
+
+    // Créer une nouvelle image
     mlx_image_t *img = mlx_new_image(config->mlx, WIN_WIDTH, WIN_HEIGHT);
     if (!img)
-		return;
-    // Structure player et data pour le raycasting
-    
-    // Initialiser le joueur selon la configuration
-    // init_player_from_config(config);
-    // Initialiser les données de la map
+        return;
+
+    // Stocker la nouvelle image dans config
+    config->current_image = img;
+
     config->data->map = config->map.grid;
-    // Cast des rayons et dessiner pour chaque colonne de l'écran
+
     for (int x = 0; x < WIN_WIDTH; x++)
     {
-        
-        // Calculer la direction du rayon pour cette colonne
         config->data->ray.camera_x = 2 * x / (double)WIN_WIDTH - 1;
         config->data->ray.dir_x = config->data->player.dir_x + config->data->player.plane_x * config->data->ray.camera_x;
         config->data->ray.dir_y = config->data->player.dir_y + config->data->player.plane_y * config->data->ray.camera_x;
-        
-        // Calcul de delta_dist
+
         config->data->ray.map_x = (int)config->data->player.pos_x;
         config->data->ray.map_y = (int)config->data->player.pos_y;
         config->data->ray.deltadist_x = fabs(1 / config->data->ray.dir_x);
         config->data->ray.deltadist_y = fabs(1 / config->data->ray.dir_y);
-        
-        // Calcul de step et side_dist
+
         ft_calc_step_and_side_dist(config);
-        
-        // DDA Algorithm
         perf_dda(config);
-        
-        // Calcul de la hauteur du mur
         calc_wall_height(config);
-        
-        // Dessiner le mur
         draw_wall(x, config, img);
     }
-    
+
     // Afficher l'image
     mlx_image_to_window(config->mlx, img, 0, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 21:34:34 by axburin-          #+#    #+#             */
-/*   Updated: 2025/03/20 23:18:06 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:32:37 by axburin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void	init_config(t_config *config)
 	config->map.player_y = -1;
 	config->map.player_dir = '\0';
 	config->data = NULL;
+	config->current_image = NULL;
+	for(int i = 0; i < 512; i++)
+		config->keys[i] = 0;
 }
 
 void	init_ray(t_config *config)
@@ -88,7 +91,6 @@ void	init_data(t_config *config)
 	config->data->win_height = WIN_HEIGHT;
 	config->data->win_width = WIN_WIDTH;
 	init_player(config);
-	// init_texture(&data->texinfo);
 	config->data->map = NULL;
 	init_map(config);
 	config->data->texture_pixels = NULL;
@@ -98,8 +100,6 @@ void init_all(t_config *config )
 {
 	init_data(config);
 	init_ray(config);
-	// init_player(config);
-	// init_map(config);
 }
 void	init_img_clean(t_img *img)
 {

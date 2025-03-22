@@ -21,7 +21,6 @@ PROBLEME
 
 TRUC A FAIRE
 
-- voir pour fluidifier le truc pour pas que sa surchauffe
 - y a des leaks, je crois qu'il y a une histoire de mlx_delet pour supprimer
 	les image generer (lancer avec val --suppressions=mlx42.supp ./Cub3D maps/map.cub)
 - voir pourquoi on est entourer de mur a chaque fois

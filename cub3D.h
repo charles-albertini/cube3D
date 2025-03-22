@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:55:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/21 15:39:16 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:11:39 by axburin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,8 @@ typedef struct s_config
 	mlx_t		*mlx;
 	t_map		map;
 	t_data		*data;
+	mlx_image_t	*current_image; // Ajout pour stocker l'image actuelle
+	int			keys[512]; // Ajout pour stocker l'état des touches
 }		t_config;
 
 //PARSING
@@ -256,6 +258,6 @@ void move_player(t_config *config);
 void continuous_render(void *param);
 void start_game_engine(t_config *config);
 void update_player_position(t_config *config);
-
-
+void handle_rotation(t_config *config);
+void handle_movement(t_config *config);
 #endif
