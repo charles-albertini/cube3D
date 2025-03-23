@@ -6,7 +6,7 @@
 /*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:37:11 by axburin-          #+#    #+#             */
-/*   Updated: 2025/03/22 17:48:35 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/23 12:43:06 by axburin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	handle_rotation2(t_config *config)
 }
 
 // Gère les déplacements avant/arrière
-static void	move_forward_backward(t_config *config, double move_speed)
+void	move_forward_backward(t_config *config, double move_speed)
 {
 	t_player	*player;
 	double		new_x;
@@ -92,8 +92,7 @@ static void	move_forward_backward(t_config *config, double move_speed)
 	}
 }
 
-// Gère les déplacements latéraux
-static void	move_strafe(t_config *config, double move_speed)
+void	move_strafe(t_config *config, double move_speed)
 {
 	t_player	*player;
 	double		new_x;
@@ -120,14 +119,4 @@ static void	move_strafe(t_config *config, double move_speed)
 			player->pos_y = new_y;
 		}
 	}
-}
-
-// Gère tous les mouvements du joueur
-void	move_player(t_config *config)
-{
-	double	move_speed;
-
-	move_speed = 0.05;
-	move_forward_backward(config, move_speed);
-	move_strafe(config, move_speed);
 }
