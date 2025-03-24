@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:10:43 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/23 11:58:14 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:19:50 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,4 @@ void	init_player_from_config(t_config *config)
 	player->move_y = 0;
 	player->rotate = 0;
 	set_player_direction(player, config->map.player_dir);
-}
-
-void	move_player(t_config *config)
-{
-	double	move_speed;
-
-	move_speed = 0.05;
-	move_forward_backward(config, move_speed);
-	move_strafe(config, move_speed);
 }

@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:05:48 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/20 21:02:22 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:50:33 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ void	get_images(t_config *conf)
 	mlx_delete_texture(conf->textu->south);
 	mlx_delete_texture(conf->textu->west);
 	mlx_delete_texture(conf->textu->east);
+	free(conf->textu);
 }

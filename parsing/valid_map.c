@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:03:43 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/19 19:35:50 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:44:03 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,21 @@ int	check_map_borders(t_config *config)
 	}
 	mark_outer_spaces(copy, config);
 	res = flood_fill(copy, config->map.player_x, config->map.player_y, config);
+
 	i = 0;
-	while (i < config->map.height)
+	while(i < config->map.height)
 	{
-		free(copy[i]);
+		config->map.grid[i] = copy[i];
 		i++;
 	}
-	free(copy);
+	
+	// i = 0;
+	// while (i < config->map.height)
+	// {
+	// 	free(copy[i]);
+	// 	i++;
+	// }
+	// free(copy);
 	if (!res)
 		printf("Error\nMap is not properly closed\n");
 	return (res);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:11:22 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/24 11:27:43 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:21:15 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,9 @@ void	render_frame(t_config *config)
 		config->data->ray.deltadist_x = fabs(1 / config->data->ray.dir_x);
 		config->data->ray.deltadist_y = fabs(1 / config->data->ray.dir_y);
 		ft_calc_step_and_side_dist(config);
-		perf_dda(config);
-		(calc_wall_height(config), draw_wall(x, config, img));
+		(perf_dda(config), calc_wall_height(config), draw_wall(x, config, img));
 		x++;
 	}
+	draw_minimap(config);
 	mlx_image_to_window(config->mlx, img, 0, 0);
 }

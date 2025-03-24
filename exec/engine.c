@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:11:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/22 17:14:44 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:23:26 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	handle_forward_backward(t_config *config, double movespeed)
 	{
 		new_x = player->pos_x + player->dir_x * movespeed;
 		new_y = player->pos_y + player->dir_y * movespeed;
-		if (config->map.grid[(int)new_y][(int)new_x] != '1')
+		if ((config->map.grid[(int)new_y][(int)new_x] != '1') && (config->map.grid[(int)new_y][(int)new_x] != 'O'))
 		{
 			player->pos_x = new_x;
 			player->pos_y = new_y;

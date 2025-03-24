@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:26:25 by axburin-          #+#    #+#             */
-/*   Updated: 2025/03/22 17:32:14 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:52:16 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,15 @@ void	my_key_hook(mlx_key_data_t keydata, void *param)
 	}
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
+		// int i = 0;
+		// while (i < config->map.height)
+		// {
+		// 	free(config->map.grid[i]);
+		// 	i++;
+		// }
+		// free(config->map.grid[i]);
 		mlx_close_window(config->mlx);
+		cleanup((t_config *)param);
 	}
 }
 

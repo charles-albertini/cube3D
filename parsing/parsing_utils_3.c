@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 17:44:55 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/19 19:34:28 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:36:42 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	**make_normalize(t_config *config, char **normalize, int i, int j)
 	{
 		tab = 0;
 		j = 0;
+		config->map.grid[i] = supp_zero(config->map.grid[i]);
 		len = ft_strlen_width(config->map.grid[i]);
 		normalize[i] = malloc(config->map.width + 2);
 		while (j < len -1)
@@ -74,4 +75,22 @@ char	*ft_strdup_tab_to_space(char *src)
 	}
 	cpy[j] = '\0';
 	return (cpy);
+}
+
+char	*supp_zero(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	while(len >= 0 && str[len] != '1')
+	{
+		if (str[len] == '0')
+		{
+			str[len] = ' ';
+			len --;
+		}
+		else
+			len --;
+	}
+	return(str);
 }

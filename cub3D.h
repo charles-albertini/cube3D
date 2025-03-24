@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:55:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/24 11:21:18 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:38:40 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define BUFFER_SIZE 50
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
+# define MINI_MAP_SCALE 0.2  // Réduit la carte à 20% de la taille réelle
+# define TILE_SIZE 10         // Taille d'un bloc en pixels sur la mini-ma
 
 
 
@@ -276,4 +278,7 @@ void handle_movement(t_config *config);
 void	handle_rotation2(t_config *config);
 void	move_forward_backward(t_config *config, double move_speed);
 void	move_strafe(t_config *config, double move_speed);
+char	*supp_zero(char *str);
+void	draw_minimap(t_config *game);
+void	cleanup(t_config *conf);
 #endif
