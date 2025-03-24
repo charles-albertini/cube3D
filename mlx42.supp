@@ -48,21 +48,9 @@
 }
 
 {
-   MLX42_Loss
-   Memcheck:Leak
-   match-leak-kinds: definite
-   fun:malloc
-   fun:lodepng_decode
-   fun:lodepng_decode_file
-   fun:mlx_load_png
-   fun:get_textures
-   obj:/home/calberti/Documents/git_cube3D/Cub3D
+	<MLX42>
+	Memcheck:Leak
+	...
+	obj:/usr/lib/x86_64-linux-gnu/libdrm*
 }
 
-{
-   System_Loss
-   Memcheck:Leak
-   match-leak-kinds: definite
-   fun:malloc
-   obj:/usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
-}
