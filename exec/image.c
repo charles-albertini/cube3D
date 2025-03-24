@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:05:48 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/24 15:50:33 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/24 21:07:22 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	get_textures(t_config *config)
 {
 	config->textu = malloc(sizeof(t_textures));
-	config->textu->north = mlx_load_png("textures/north.png");
-	config->textu->south = mlx_load_png("textures/south.png");
-	config->textu->west = mlx_load_png("textures/west.png");
-	config->textu->east = mlx_load_png("textures/east.png");
+	config->textu->north = mlx_load_png(config->north.path);
+	config->textu->south = mlx_load_png(config->south.path);
+	config->textu->west = mlx_load_png(config->west.path);
+	config->textu->east = mlx_load_png(config->east.path);
 }
 
 void	get_images(t_config *conf)

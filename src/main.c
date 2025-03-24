@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:57:42 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/24 11:30:44 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/24 23:11:39 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int	main(int argc, char **argv)
 	}
 	if (!parse_cub_file(argv[1], &config))
 		return (1);
-	else
-		printf("tout est ok !\n");
 	start_game_engine(&config);
-	clean_config(&config);
+	cleanup(&config);
 	return (0);
 }

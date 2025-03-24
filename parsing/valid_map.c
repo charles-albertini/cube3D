@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:03:43 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/24 15:44:03 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/24 22:25:27 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	normalize_map(t_config *config)
 	normalize = malloc(sizeof(char *) * config->map.height);
 	if (!normalize)
 		return (0);
+	config->map.grid[i] = supp_zero(config->map.grid[i]);
 	normalize = make_normalize(config, normalize, i, j);
 	i = 0;
 	while (i < config->map.height)
@@ -77,36 +78,11 @@ int	normalize_map(t_config *config)
 
 int	check_map_borders(t_config *config)
 {
-	char	**copy;
-	int		i;
 	int		res;
 
-	copy = malloc(sizeof(char *) * config->map.height);
-	i = 0;
-	while (i < config->map.height)
-	{
-		copy[i] = ft_strdup(config->map.grid[i]);
-		if (!clean_copy(copy, i))
-			return (0);
-		i++;
-	}
-	mark_outer_spaces(copy, config);
-	res = flood_fill(copy, config->map.player_x, config->map.player_y, config);
-
-	i = 0;
-	while(i < config->map.height)
-	{
-		config->map.grid[i] = copy[i];
-		i++;
-	}
-	
-	// i = 0;
-	// while (i < config->map.height)
-	// {
-	// 	free(copy[i]);
-	// 	i++;
-	// }
-	// free(copy);
+	mark_outer_spaces(config->map.grid, config);
+	res = flood_fill(config->map.grid, config->map.player_x,
+			config->map.player_y, config);
 	if (!res)
 		printf("Error\nMap is not properly closed\n");
 	return (res);

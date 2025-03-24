@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:01:17 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/19 19:35:40 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/24 23:15:35 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	parse_line(char *line, t_config *config)
 int	parse_texture(char *path, t_texture *texture)
 {
 	int	len;
+	int	fd;
 
 	len = ft_strlen(path);
 	while (len > 0 && (path[len - 1] == ' ' || path[len - 1] == '\n'
@@ -85,6 +86,11 @@ int	parse_texture(char *path, t_texture *texture)
 	if (*path == '\0')
 		return (printf("Error\nEmpty texture path"), 0);
 	texture->path = ft_strdup(path);
+	fd = open(texture->path, O_RDONLY);
+	if (fd < 0)
+		return (printf("Error\nCan't open file"), 0);
+	else
+		close(fd);
 	if (texture->path == NULL)
 		return (printf("Error\nMemory allocation failed"), 0);
 	return (1);

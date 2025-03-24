@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:26:25 by axburin-          #+#    #+#             */
-/*   Updated: 2025/03/24 16:00:15 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/24 22:26:32 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	my_key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
 		mlx_close_window(config->mlx);
-		cleanup((t_config *)param);
 	}
 }
 

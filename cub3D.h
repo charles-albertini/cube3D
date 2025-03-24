@@ -6,10 +6,9 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:55:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/24 15:59:33 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/24 22:57:47 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -31,10 +30,8 @@
 # define BUFFER_SIZE 50
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
-# define MINI_MAP_SCALE 0.2  // Réduit la carte à 20% de la taille réelle
-# define TILE_SIZE 10         // Taille d'un bloc en pixels sur la mini-ma
-
-
+# define MINI_MAP_SCALE 0.2
+# define T_SIZE 10
 
 typedef struct s_player
 {
@@ -138,7 +135,6 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-
 // parsing
 
 typedef struct s_texture
@@ -185,19 +181,19 @@ typedef struct s_map
 
 typedef struct s_config
 {
-	t_texture	north;
-	t_texture	south;
-	t_texture	west;
-	t_texture	east;
-	struct s_images	*imag;
+	t_texture			north;
+	t_texture			south;
+	t_texture			west;
+	t_texture			east;
+	struct s_images		*imag;
 	struct s_textures	*textu;
-	t_color		floor;
-	t_color		ceiling;
-	mlx_t		*mlx;
-	t_map		map;
-	t_data		*data;
-	mlx_image_t	*current_image; // Ajout pour stocker l'image actuelle
-	int			keys[512]; // Ajout pour stocker l'état des touches
+	t_color				floor;
+	t_color				ceiling;
+	mlx_t				*mlx;
+	t_map				map;
+	t_data				*data;
+	mlx_image_t			*current_image;
+	int					keys[512];
 }		t_config;
 
 //PARSING
@@ -255,30 +251,31 @@ void	get_textures(t_config *config);
 void	get_images(t_config *conf);
 void	draw_map(t_config *config);
 void	my_key_hook(mlx_key_data_t keydata, void *param);
-
-void init_all(t_config *config );
+void	init_all(t_config *config );
 
 //RAY cast
 void	ft_calc_delta_dist(t_config *config);
 void	ft_calc_step_and_side_dist(t_config *config);
-void perf_dda(t_config *config);
-void calc_wall_height(t_config *config);
+void	perf_dda(t_config *config);
+void	calc_wall_height(t_config *config);
 void	ft_cast_rays(t_config *config);
 
 //TEST
-void draw_wall(int x, t_config *config, mlx_image_t *img);
-void render_frame(t_config *config);
-void init_player_from_config(t_config *config);
-void move_player(t_config *config);
-void continuous_render(void *param);
-void start_game_engine(t_config *config);
-void update_player_position(t_config *config);
-void handle_rotation(t_config *config);
-void handle_movement(t_config *config);
+void	draw_wall(int x, t_config *config, mlx_image_t *img);
+void	render_frame(t_config *config);
+void	init_player_from_config(t_config *config);
+void	move_player(t_config *config);
+void	continuous_render(void *param);
+void	start_game_engine(t_config *config);
+void	update_player_position(t_config *config);
+void	handle_rotation(t_config *config);
+void	handle_movement(t_config *config);
 void	handle_rotation2(t_config *config);
 void	move_forward_backward(t_config *config, double move_speed);
 void	move_strafe(t_config *config, double move_speed);
 char	*supp_zero(char *str);
 void	draw_minimap(t_config *game);
 void	cleanup(t_config *conf);
+int		update_player_xy(int player, int dir);
+int		verif_move(t_config *config, double new_y, double new_x);
 #endif

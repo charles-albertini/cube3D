@@ -1,5 +1,5 @@
 NAME    := Cub3D
-CFLAGS  := -Wextra -Wall -Werror
+CFLAGS  := -Wextra -Wall -Werror -g
 LIBMLX  := MLX42
 MLX		:= MLX42
 CLONE	:= git clone --depth=1
