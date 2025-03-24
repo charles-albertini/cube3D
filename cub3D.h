@@ -6,7 +6,7 @@
 /*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:55:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/23 12:43:15 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:21:18 by axburin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define BUFFER_SIZE 50
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
+
+
 
 typedef struct s_player
 {
@@ -69,6 +71,17 @@ typedef struct s_ray
 	int		draw_end;
 }	t_ray;
 
+typedef struct s_utils
+{
+	t_ray			*ray;
+	mlx_texture_t	*texture;
+	int				tex_x;
+	int				tex_y;
+	double			step;
+	double			tex_pos;
+	uint32_t		color;
+	int				y;
+}	t_utils;
 typedef struct s_mapinf
 {
 	int			fd;

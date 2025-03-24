@@ -6,7 +6,7 @@
 /*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:11:22 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/23 13:17:31 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:27:43 by axburin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,37 +35,35 @@ void	get_wall_texture(t_config *config, mlx_texture_t **texture, int *tex_x)
 
 void	draw_wall_texture(int x, t_config *config, mlx_image_t *img)
 {
-	t_ray			*ray;
-	mlx_texture_t	*texture;
-	int				tex_x;
-	int				tex_y;
-	double			step;
-	double			tex_pos;
-	uint32_t		color;
-	int				y;
+	t_utils	utils;
+	uint8_t	*pixel;
 
-	ray = &config->data->ray;
-	get_wall_texture(config, &texture, &tex_x);
-	step = 1.0 * texture->height / ray->line_height;
-	tex_pos = (ray->draw_start - WIN_HEIGHT / 2 + ray->line_height / 2) * step;
-	y = ray->draw_start;
-	while (y < ray->draw_end)
+	utils.ray = &config->data->ray;
+	get_wall_texture(config, &utils.texture, &utils.tex_x);
+	utils.step = 1.0 * utils.texture->height / utils.ray->line_height;
+	utils.tex_pos = (utils.ray->draw_start - WIN_HEIGHT / 2
+			+ utils.ray->line_height / 2) * utils.step;
+	utils.y = utils.ray->draw_start;
+	while (utils.y < utils.ray->draw_end)
 	{
-		tex_y = (int)tex_pos & (texture->height - 1);
-		tex_pos += step;
-		uint8_t *pixel = &texture->pixels[(tex_y * texture->width + tex_x) * 4];
-		color = (pixel[0] << 24) | (pixel[1] << 16) | (pixel[2] << 8) | pixel[3];
-		if (ray->side == 1)
-			color = ((color >> 1) & 0x7F7F7F7F) | (color & 0xFF);
-		mlx_put_pixel(img, x, y, color);
-		y++;
+		utils.tex_y = (int)utils.tex_pos & (utils.texture->height - 1);
+		utils.tex_pos += utils.step;
+		pixel = &utils.texture->pixels[(utils.tex_y
+				* utils.texture->width + utils.tex_x) * 4];
+		utils.color = (pixel[0] << 24) | (pixel[1] << 16)
+			| (pixel[2] << 8) | pixel[3];
+		if (utils.ray->side == 1)
+			utils.color = ((utils.color >> 1) & 0x7F7F7F7F)
+				| (utils.color & 0xFF);
+		mlx_put_pixel(img, x, utils.y, utils.color);
+		utils.y++;
 	}
 }
 
 void	draw_wall(int x, t_config *config, mlx_image_t *img)
 {
 	t_ray	*ray;
-	int	y;
+	int		y;
 
 	ray = &config->data->ray;
 	y = 0;
@@ -85,26 +83,29 @@ void	draw_wall(int x, t_config *config, mlx_image_t *img)
 
 static void	initialize_image(t_config *config)
 {
-    if (config->current_image)
-    {
-        mlx_delete_image(config->mlx, config->current_image);
-        config->current_image = NULL; // Réinitialiser le pointeur
-    }
-    mlx_image_t *img = mlx_new_image(config->mlx, WIN_WIDTH, WIN_HEIGHT);
-    if (!img)
-        return;
-    config->current_image = img;
-    config->data->map = config->map.grid;
+	mlx_image_t	*img;
+
+	if (config->current_image)
+	{
+		mlx_delete_image(config->mlx, config->current_image);
+		config->current_image = NULL;
+	}
+	img = mlx_new_image(config->mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (!img)
+		return ;
+	config->current_image = img;
+	config->data->map = config->map.grid;
 }
 
 void	render_frame(t_config *config)
 {
-	int	x;
+	int			x;
+	mlx_image_t	*img;
 
 	initialize_image(config);
 	if (!config->current_image)
-		return;
-	mlx_image_t *img = config->current_image;
+		return ;
+	img = config->current_image;
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
@@ -119,8 +120,7 @@ void	render_frame(t_config *config)
 		config->data->ray.deltadist_y = fabs(1 / config->data->ray.dir_y);
 		ft_calc_step_and_side_dist(config);
 		perf_dda(config);
-		calc_wall_height(config);
-		draw_wall(x, config, img);
+		(calc_wall_height(config), draw_wall(x, config, img));
 		x++;
 	}
 	mlx_image_to_window(config->mlx, img, 0, 0);
