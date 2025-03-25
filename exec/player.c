@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:10:43 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/24 22:59:43 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:25:11 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@ static void	set_player_plane(t_player *player, char dir)
 {
 	if (dir == 'N')
 	{
-		player->plane_x = 0.0;
-		player->plane_y = 0.66;
+		player->plane_x = -0.66;
+		player->plane_y = 0.0;
 	}
 	else if (dir == 'S')
-	{
-		player->plane_x = 0.0;
-		player->plane_y = -0.66;
-	}
-	else if (dir == 'E')
 	{
 		player->plane_x = 0.66;
 		player->plane_y = 0.0;
 	}
+	else if (dir == 'E')
+	{
+		player->plane_x = 0.0;
+		player->plane_y = -0.66;
+	}
 	else if (dir == 'W')
 	{
-		player->plane_x = -0.66;
-		player->plane_y = 0.0;
+		player->plane_x = 0.0;
+		player->plane_y = 0.66;
 	}
 }
 
@@ -40,23 +40,23 @@ static void	set_player_direction(t_player *player, char dir)
 {
 	if (dir == 'N')
 	{
-		player->dir_x = -1.0;
-		player->dir_y = 0.0;
+		player->dir_x = 0.0;
+		player->dir_y = -1.0;
 	}
 	else if (dir == 'S')
-	{
-		player->dir_x = 1.0;
-		player->dir_y = 0.0;
-	}
-	else if (dir == 'E')
 	{
 		player->dir_x = 0.0;
 		player->dir_y = 1.0;
 	}
+	else if (dir == 'E')
+	{
+		player->dir_x = 1.0;
+		player->dir_y = 0.0;
+	}
 	else if (dir == 'W')
 	{
-		player->dir_x = 0.0;
-		player->dir_y = -1.0;
+		player->dir_x = -1.0;
+		player->dir_y = 0.0;
 	}
 	set_player_plane(player, dir);
 }
@@ -77,11 +77,33 @@ void	init_player_from_config(t_config *config)
 
 int	verif_move(t_config *config, double new_y, double new_x)
 {
-	if ((config->map.grid[(int)new_y][(int)new_x] != '1')
-		&& (config->map.grid[(int)new_y][(int)new_x] != 'O')
-		&& ((new_y > 0.5) && (new_y < config->map.height - 1))
-		&& ((new_x > 0.5) && (new_x < config->map.width - 1)))
-		return (1);
-	else
-		return (0);
+	int y = (int)new_y;
+    int x = (int)new_x;
+	
+	if (config->movespeed == 0.15)
+	{
+		
+		if ((config->map.grid[(int)new_y][(int)new_x] != '1')
+			&& (config->map.grid[(int)new_y][(int)new_x] != 'O')
+			&& ((new_y > 0.5) && (new_y < config->map.height - 1))
+			&& ((new_x > 0.5) && (new_x < config->map.width - 1)))
+			return (1);
+		else
+			return (0);
+	}
+	else if(config->movespeed == 0.05)
+	{
+		if (new_y <= 0.5 || new_y >= config->map.height - 1 || new_x <= 0.5 || new_x >= config->map.width - 1)
+        	return 0;
+    	if (config->map.grid[y][x] == '1')
+        	return 0;
+    	if (config->map.grid[y][x] == 'V' && 
+        	config->map.grid[y + 1][x] == '1' && 
+        	config->map.grid[y][x + 1] == '1')
+    	{
+        	return 0;
+    	}	
+    	return 1;
+	}
+	return (0);
 }

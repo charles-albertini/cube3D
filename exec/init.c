@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 21:34:34 by axburin-          #+#    #+#             */
-/*   Updated: 2025/03/22 17:20:42 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:09:04 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_config(t_config *config)
 	config->map.player_dir = '\0';
 	config->data = NULL;
 	config->current_image = NULL;
+	config->movespeed = 0.05;
 }
 
 void	init_ray(t_config *config)

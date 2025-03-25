@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 14:41:45 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/24 22:54:19 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:03:45 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,35 +81,6 @@ static void	draw_player(t_config *config)
 	}
 }
 
-static void	draw_dir(t_config *config, int player_x, int player_y)
-{
-	int	line_length;
-	int	dir_x;
-	int	dir_y;
-	int	err;
-
-	line_length = 10;
-	dir_x = player_x + (int)(config->data->player.dir_x * line_length);
-	dir_y = player_y + (int)(config->data->player.dir_y * line_length);
-	err = abs(dir_x - player_x) - abs(dir_y - player_y);
-	while (player_x != dir_x || player_y != dir_y)
-	{
-		if (player_x >= 0 && player_x < config->map.width * T_SIZE
-			&& player_y >= 0 && player_y < config->map.height * T_SIZE)
-			mlx_put_pixel(config->current_image, player_x, player_y, 0xFF0000);
-		if (err > 0)
-		{
-			player_x += update_player_xy(player_x, dir_x);
-			err -= abs(dir_y - player_y);
-		}
-		else
-		{
-			player_y += update_player_xy(player_y, dir_y);
-			err += abs(dir_x - player_x);
-		}
-	}
-}
-
 void	draw_minimap(t_config *config)
 {
 	int	x;
@@ -133,8 +104,5 @@ void	draw_minimap(t_config *config)
 		y++;
 	}
 	draw_player(config);
-	draw_dir(config,
-		(int)(config->data->player.pos_x * T_SIZE),
-		(int)(config->data->player.pos_y * T_SIZE));
 	mlx_image_to_window(config->mlx, config->current_image, 10, 10);
 }

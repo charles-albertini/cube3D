@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:55:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/24 22:57:47 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:09:52 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ typedef struct s_config
 	t_data				*data;
 	mlx_image_t			*current_image;
 	int					keys[512];
+	double					movespeed;
 }		t_config;
 
 //PARSING
@@ -208,6 +209,7 @@ int		parse_cub_file(char *filename, t_config *config);
 int		is_all_num(char *str);
 char	*trim_left(char *str);
 void	flood_fill_mark(char **map, int x, int y, t_config *config);
+int		flood_fill_2(char **map, int x, int y, t_config *config);
 void	mark_outer_spaces(char **map, t_config *config);
 int		ft_strlen_width(char *str);
 int		pars_position(char *line, t_config *config);

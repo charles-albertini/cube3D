@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:11:35 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/24 22:59:27 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:14:15 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,8 @@ static void	handle_strafe(t_config *config, double movespeed)
 
 void	handle_movement(t_config *config)
 {
-	double	movespeed;
-
-	movespeed = 0.05;
-	handle_forward_backward(config, movespeed);
-	handle_strafe(config, movespeed);
+	handle_forward_backward(config, config->movespeed);
+	handle_strafe(config, config->movespeed);
 }
 
 void	continuous_render(void *param)

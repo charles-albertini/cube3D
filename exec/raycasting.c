@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axburin- <axburin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:41:13 by axburin-          #+#    #+#             */
-/*   Updated: 2025/03/23 13:01:17 by axburin-         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:20:30 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	check_hit(t_ray *ray, char **map, int map_width, int map_height)
 	}
 	if (map && ray->map_y >= 0 && ray->map_y < map_height
 		&& ray->map_x >= 0 && ray->map_x < map_width
-		&& map[ray->map_y][ray->map_x] == '1')
+		&& (map[ray->map_y][ray->map_x] == '1'
+		|| map[ray->map_y][ray->map_x] == 'O'))
 	{
 		return (1);
 	}
