@@ -64,6 +64,8 @@
     "__bit_reference": "c",
     "__string": "c",
     "algorithm": "c",
-    "deque": "c"
+    "deque": "c",
+    "map": "c",
+    "__tree": "c"
   }
 }
