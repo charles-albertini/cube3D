@@ -6,7 +6,7 @@
 /*   By: calberti <calberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:03:43 by calberti          #+#    #+#             */
-/*   Updated: 2025/03/24 22:25:27 by calberti         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:05:15 by calberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,12 @@ int	normalize_map(t_config *config)
 	normalize = malloc(sizeof(char *) * config->map.height);
 	if (!normalize)
 		return (0);
-	config->map.grid[i] = supp_zero(config->map.grid[i]);
+	while (i < config->map.height)
+	{
+		config->map.grid[i] = supp_zero(config->map.grid[i]);
+		i ++;
+	}
+	i = 0;
 	normalize = make_normalize(config, normalize, i, j);
 	i = 0;
 	while (i < config->map.height)
